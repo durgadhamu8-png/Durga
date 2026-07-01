@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ragathi Durga Prasanth — Electrical Technician</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#10161B;
+    --paper:#F2ECDD;
+    --amber:#FFB627;
+    --copper:#B5622A;
+    --steel:#4C5A63;
+    --green-led:#4C8C6B;
+    --line: rgba(16,22,27,0.14);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  a{color:inherit;}
+
+  ::selection{background:var(--amber); color:var(--ink);}
+
+  /* ---------- shared layout ---------- */
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  section{padding:96px 0;}
+  @media (max-width:640px){
+    section{padding:64px 0;}
+    .wrap{padding:0 20px;}
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--copper);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:1px;
+    background:var(--copper);
+    display:inline-block;
+  }
+
+  h1,h2,h3{
+    font-family:'Archivo Black', sans-serif;
+    text-transform:uppercase;
+    line-height:1.02;
+    letter-spacing:-0.01em;
+  }
+
+  h2{font-size:clamp(28px,4vw,42px); margin-bottom:44px;}
+
+  /* ---------- nav / nameplate strip ---------- */
+  header.plate{
+    position:sticky; top:0; z-index:50;
+    background:var(--ink); color:var(--paper);
+    border-bottom:3px solid var(--amber);
+  }
+  header.plate .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:14px; padding-bottom:14px;
+  }
+  header.plate .id{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; letter-spacing:.08em;
+  }
+  header.plate .id b{color:var(--amber); font-weight:600;}
+  header.plate nav{display:flex; gap:26px; font-size:13px; font-family:'IBM Plex Mono',monospace;}
+  header.plate nav a{text-decoration:none; opacity:.75; transition:opacity .2s;}
+  header.plate nav a:hover{opacity:1; color:var(--amber);}
+  @media (max-width:700px){ header.plate nav{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:var(--ink); color:var(--paper);
+    padding:80px 0 70px;
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid rgba(242,236,221,0.12);
+  }
+  .hero .wrap{position:relative; z-index:2;}
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.35fr 1fr;
+    gap:48px;
+    align-items:end;
+  }
+  @media (max-width:800px){ .hero-grid{grid-template-columns:1fr;} }
+
+  .hero h1{
+    font-size:clamp(38px,6vw,68px);
+    color:var(--paper);
+    margin:14px 0 22px;
+  }
+  .hero h1 span{color:var(--amber);}
+  .hero .role{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:15px;
+    color:var(--green-led);
+    letter-spacing:.03em;
+    margin-bottom:22px;
+  }
+  .hero .role::before{content:"● "; }
+  .hero p.desc{
+    max-width:52ch;
+    color:rgba(242,236,221,0.82);
+    font-size:16px;
+  }
+
+  .meter{
+    border:1px solid rgba(242,236,221,0.25);
+    padding:20px 22px;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .meter .row{
+    display:flex; justify-content:space-between;
+    padding:9px 0;
+    border-bottom:1px dashed rgba(242,236,221,0.18);
+    font-size:13px;
+  }
+  .meter .row:last-child{border-bottom:none;}
+  .meter .row .k{color:rgba(242,236,221,0.55);}
+  .meter .row .v{color:var(--amber);}
+  .meter .readout{
+    font-size:34px;
+    color:var(--green-led);
+    margin-bottom:6px;
+    letter-spacing:.02em;
+  }
+  .meter .readout small{font-size:14px; color:rgba(242,236,221,0.5); margin-left:6px;}
+
+  .contact-strip{
+    display:flex; flex-wrap:wrap; gap:22px;
+    margin-top:36px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:rgba(242,236,221,0.75);
+  }
+  .contact-strip a{text-decoration:none; border-bottom:1px solid rgba(242,236,221,0.3); padding-bottom:2px;}
+  .contact-strip a:hover{color:var(--amber); border-color:var(--amber);}
+
+  /* ---------- about ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 0.9fr 1.6fr;
+    gap:56px;
+  }
+  @media (max-width:800px){ .about-grid{grid-template-columns:1fr; gap:28px;} }
+  .about-grid .lead{
+    font-size:19px;
+    max-width:60ch;
+  }
+  .spec-box{
+    border:1px solid var(--line);
+    padding:22px;
+  }
+  .spec-box .title{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--steel);
+    margin-bottom:14px;
+  }
+  .spec-box ul{list-style:none;}
+  .spec-box li{
+    display:flex; justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    padding:7px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .spec-box li:last-child{border-bottom:none;}
+  .spec-box li span:first-child{color:var(--steel);}
+
+  /* ---------- skills: control panel ---------- */
+  .panel{
+    background:var(--ink); color:var(--paper);
+  }
+  .panel h2{color:var(--paper);}
+  .panel .eyebrow{color:var(--amber);}
+  .panel .eyebrow::before{background:var(--amber);}
+
+  .switchboard{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1px;
+    background:rgba(242,236,221,0.16);
+    border:1px solid rgba(242,236,221,0.16);
+  }
+  @media (max-width:700px){ .switchboard{grid-template-columns:1fr;} }
+  .switchboard .col{background:var(--ink); padding:32px;}
+  .switchboard .col h3{
+    font-size:15px; color:var(--amber); margin-bottom:20px; letter-spacing:.04em;
+  }
+  .gauge-row{
+    display:flex; align-items:center; gap:14px;
+    padding:11px 0;
+    border-bottom:1px solid rgba(242,236,221,0.1);
+  }
+  .gauge-row:last-child{border-bottom:none;}
+  .led{
+    width:9px; height:9px; border-radius:50%;
+    background:var(--green-led);
+    box-shadow:0 0 8px var(--green-led);
+    flex-shrink:0;
+  }
+  .led.amber{background:var(--amber); box-shadow:0 0 8px var(--amber);}
+  .gauge-row .label{
+    font-size:14px;
+    color:rgba(242,236,221,0.88);
+  }
+  .gauge-row .label small{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:rgba(242,236,221,0.4);
+    margin-top:2px;
+  }
+
+  /* ---------- training: wiring diagram timeline ---------- */
+  .circuit{
+    position:relative;
+    padding-left:36px;
+  }
+  .circuit::before{
+    content:"";
+    position:absolute;
+    left:9px; top:6px; bottom:6px;
+    width:2px;
+    background:repeating-linear-gradient(var(--copper),var(--copper) 6px, transparent 6px, transparent 11px);
+  }
+  .node{
+    position:relative;
+    padding-bottom:38px;
+  }
+  .node:last-child{padding-bottom:0;}
+  .node::before{
+    content:"";
+    position:absolute;
+    left:-36px; top:4px;
+    width:19px; height:19px;
+    border-radius:50%;
+    background:var(--paper);
+    border:3px solid var(--copper);
+  }
+  .node .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--copper);
+    margin-bottom:6px;
+  }
+  .node h3{
+    font-family:'IBM Plex Sans', sans-serif;
+    text-transform:none;
+    font-weight:700;
+    font-size:18px;
+    margin-bottom:8px;
+  }
+  .node p{max-width:64ch; color:var(--steel); font-size:15px;}
+
+  .org-line{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--steel);
+    margin-bottom:36px;
+  }
+  .org-line b{color:var(--ink);}
+
+  /* ---------- education ---------- */
+  .edu-card{
+    border:1px solid var(--line);
+    padding:26px 28px;
+    margin-bottom:16px;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .edu-card .school{font-weight:700; font-size:17px;}
+  .edu-card .prog{color:var(--copper); font-family:'IBM Plex Mono',monospace; font-size:13px; margin-top:4px;}
+  .edu-card .years{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--steel); white-space:nowrap;}
+  .edu-card .courses{width:100%; margin-top:14px; font-size:14px; color:var(--steel); border-top:1px dashed var(--line); padding-top:14px;}
+
+  /* ---------- strengths ---------- */
+  .strength-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  @media (max-width:900px){ .strength-grid{grid-template-columns:repeat(2,1fr);} }
+  .strength-cell{
+    background:var(--paper);
+    padding:26px 22px;
+  }
+  .strength-cell .num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; color:var(--copper); margin-bottom:14px;
+  }
+  .strength-cell h3{
+    font-family:'IBM Plex Sans', sans-serif;
+    text-transform:none;
+    font-size:16px;
+    font-weight:700;
+    margin-bottom:8px;
+  }
+  .strength-cell p{font-size:13.5px; color:var(--steel);}
+
+  /* ---------- languages ---------- */
+  .lang-row{
+    display:grid;
+    grid-template-columns:140px 1fr 90px;
+    align-items:center;
+    gap:16px;
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+  }
+  .lang-row:last-child{border-bottom:none;}
+  .lang-bar{height:7px; background:var(--line); position:relative;}
+  .lang-bar > span{position:absolute; left:0; top:0; bottom:0; background:var(--copper);}
+  .lang-row .level{text-align:right; color:var(--steel);}
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--ink); color:rgba(242,236,221,0.7);
+    padding:56px 0 40px;
+  }
+  footer h2{color:var(--paper); font-size:clamp(26px,4vw,36px); margin-bottom:18px;}
+  footer .foot-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px; align-items:flex-end;}
+  footer .contact-strip{margin-top:0;}
+  footer .bottom{
+    margin-top:48px; padding-top:22px;
+    border-top:1px solid rgba(242,236,221,0.14);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:rgba(242,236,221,0.4);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+</style>
+</head>
+<body>
+
+<header class="plate">
+  <div class="wrap">
+    <div class="id">RDP <b>/</b> ELECTRICAL TECHNICIAN <b>/</b> VISAKHAPATNAM, IN</div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#training">Training</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow" style="color:var(--amber)">
+          <span style="width:22px;height:1px;background:var(--amber);display:inline-block;"></span>
+          ITI Electrician — Entry Level
+        </div>
+        <h1>Ragathi Durga<br><span>Prasanth</span></h1>
+        <div class="role">Ready for deployment — technical operations / facilities maintenance / hardware support</div>
+        <p class="desc">Trained on live circuits, not just theory. Two years of hands-on ITI lab practicals in wiring, diagnostics, and preventive maintenance — brought to work with a safety-first mindset and a fast-learning attitude.</p>
+        <div class="contact-strip">
+          <a href="tel:+917842661491">+91 78426 61491</a>
+          <a href="mailto:ragathidurga@gmail.com">ragathidurga@gmail.com</a>
+          <a href="https://linkedin.com/in/ragathi-durga-prasanth-526615412" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+      <div class="meter">
+        <div class="readout">ON DUTY <small>status</small></div>
+        <div class="row"><span class="k">Trade</span><span class="v">Electrician (ITI)</span></div>
+        <div class="row"><span class="k">Training period</span><span class="v">2023 – 2025</span></div>
+        <div class="row"><span class="k">Core tool</span><span class="v">Digital multimeter</span></div>
+        <div class="row"><span class="k">Certification</span><span class="v">ITI, Sri Swathi Vasanthi</span></div>
+        <div class="row"><span class="k">Languages</span><span class="v">EN · TE · HI</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="eyebrow">Profile</div>
+    <div class="about-grid">
+      <div class="spec-box">
+        <div class="title">Snapshot</div>
+        <ul>
+          <li><span>Graduate</span><span>ITI Electrical</span></li>
+          <li><span>Experience</span><span>Lab practicals, 2 yrs</span></li>
+          <li><span>Strength</span><span>Safety awareness</span></li>
+          <li><span>Learning now</span><span>Python basics</span></li>
+          <li><span>Open to</span><span>Entry-level roles</span></li>
+        </ul>
+      </div>
+      <p class="lead">
+        An ambitious and disciplined ITI Electrical graduate with hands-on practical training in electrical workshop safety, troubleshooting, and preventive maintenance. Building toward a long-term career in entry-level technical operations, facilities maintenance, or hardware support — with foundational computer skills to match. Recognized on the shop floor for reliability, calm under supervisor direction, and a genuinely fast learning curve.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="skills">
+  <div class="wrap">
+    <div class="eyebrow">Skill Panel</div>
+    <h2>What's Wired In</h2>
+    <div class="switchboard">
+      <div class="col">
+        <h3>⚡ Electrical</h3>
+        <div class="gauge-row"><span class="led amber"></span><span class="label">Electrical wiring &amp; circuit testing<small>Terminal connections, layout routing</small></span></div>
+        <div class="gauge-row"><span class="led amber"></span><span class="label">Basic troubleshooting<small>Multimeter &amp; diagnostic instruments</small></span></div>
+        <div class="gauge-row"><span class="led amber"></span><span class="label">Electrical safety protocols<small>High-voltage practice, PPE guidelines</small></span></div>
+        <div class="gauge-row"><span class="led amber"></span><span class="label">Preventive maintenance<small>Fundamentals &amp; routine checks</small></span></div>
+        <div class="gauge-row"><span class="led amber"></span><span class="label">Reading electrical diagrams<small>Basic schematics</small></span></div>
+        <div class="gauge-row"><span class="led amber"></span><span class="label">Hand tools &amp; workshop practicals<small>Organized, standards-based use</small></span></div>
+      </div>
+      <div class="col">
+        <h3>🖥 Computer</h3>
+        <div class="gauge-row"><span class="led"></span><span class="label">Basic Python<small>Currently learning</small></span></div>
+        <div class="gauge-row"><span class="led"></span><span class="label">Microsoft Word / Excel / PowerPoint<small>Documents, sheets, decks</small></span></div>
+        <div class="gauge-row"><span class="led"></span><span class="label">Windows operations<small>Basic system navigation</small></span></div>
+        <div class="gauge-row"><span class="led"></span><span class="label">Email communication<small>Professional correspondence</small></span></div>
+        <div class="gauge-row"><span class="led"></span><span class="label">Internet research<small>Sourcing information reliably</small></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="training">
+  <div class="wrap">
+    <div class="eyebrow">Hands-On Record</div>
+    <h2>Practical Training</h2>
+    <div class="org-line"><b>Sri Swathi Vasanthi ITI</b> — Electrical Lab Practicals, Visakhapatnam, AP · 2023 – 2025</div>
+    <div class="circuit">
+      <div class="node">
+        <div class="tag">Wiring &amp; Route Planning</div>
+        <h3>Clean layout wiring &amp; safe terminal connections</h3>
+        <p>Completed hands-on workshop training on layout wiring, routing paths, and building safe terminal connections from the ground up.</p>
+      </div>
+      <div class="node">
+        <div class="tag">Basic Troubleshooting</div>
+        <h3>Multimeter-led circuit diagnostics</h3>
+        <p>Learned to use multimeters and basic measuring instruments to safely perform circuit diagnostic tests under instructor guidance.</p>
+      </div>
+      <div class="node">
+        <div class="tag">Preventive Maintenance</div>
+        <h3>Routine checks &amp; equipment upkeep</h3>
+        <p>Participated in standard laboratory checks, cleaning, and basic equipment maintenance to keep tools and workspaces safely operational.</p>
+      </div>
+      <div class="node">
+        <div class="tag">Workplace Safety</div>
+        <h3>High-voltage safety &amp; PPE discipline</h3>
+        <p>Strictly adhered to workshop rules, high-voltage safety practices, tool organization protocols, and personal protective equipment guidelines.</p>
+      </div>
+      <div class="node">
+        <div class="tag">Technical Literacy</div>
+        <h3>Reading diagrams, building setups</h3>
+        <p>Practiced reading simple electrical diagrams and basic schematics to assemble functional workshop setups.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="eyebrow">Education</div>
+    <h2>Coursework &amp; Certification</h2>
+
+    <div class="edu-card">
+      <div>
+        <div class="school">Sri Swathi Vasanthi ITI</div>
+        <div class="prog">Industrial Training Institute (ITI) — Electrician</div>
+      </div>
+      <div class="years">2023 – 2025 · Visakhapatnam, AP</div>
+      <div class="courses">Electrical Wiring · Electrical Machines · Industrial Safety · Preventive Maintenance · Electrical Measurements · Basic Motor Control · Workshop Practice</div>
+    </div>
+
+    <div class="edu-card">
+      <div>
+        <div class="school">Quincy School (CBSE)</div>
+        <div class="prog">Secondary School Certificate — Class X</div>
+      </div>
+      <div class="years">Year of Passing: 2021 · Visakhapatnam, AP</div>
+    </div>
+  </div>
+</section>
+
+<section id="strengths">
+  <div class="wrap">
+    <div class="eyebrow">Professional Strengths</div>
+    <h2>On The Shop Floor</h2>
+    <div class="strength-grid">
+      <div class="strength-cell">
+        <div class="num">01</div>
+        <h3>Willingness to Learn</h3>
+        <p>Eagerly developing additional computational, troubleshooting, and automation skills to stay versatile.</p>
+      </div>
+      <div class="strength-cell">
+        <div class="num">02</div>
+        <h3>Discipline &amp; Punctuality</h3>
+        <p>Strong work ethic with consistent commitment to schedule adherence and organized work habits.</p>
+      </div>
+      <div class="strength-cell">
+        <div class="num">03</div>
+        <h3>Safety-First Mindset</h3>
+        <p>Trained to maintain strict workplace safety standards, clean workspaces, and organized tool handling.</p>
+      </div>
+      <div class="strength-cell">
+        <div class="num">04</div>
+        <h3>Team Collaboration</h3>
+        <p>Works cohesively in dynamic peer groups, contributing positively to group tasks and assignments.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="languages">
+  <div class="wrap">
+    <div class="eyebrow">Languages</div>
+    <h2>Communication</h2>
+    <div class="lang-row"><span>English</span><div class="lang-bar"><span style="width:80%"></span></div><span class="level">Professional</span></div>
+    <div class="lang-row"><span>Telugu</span><div class="lang-bar"><span style="width:100%"></span></div><span class="level">Native</span></div>
+    <div class="lang-row"><span>Hindi</span><div class="lang-bar"><span style="width:45%"></span></div><span class="level">Basic</span></div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="eyebrow" style="color:var(--amber)">
+          <span style="width:22px;height:1px;background:var(--amber);display:inline-block;"></span>
+          Get In Touch
+        </div>
+        <h2>Let's connect the circuit.</h2>
+      </div>
+      <div class="contact-strip">
+        <a href="tel:+917842661491">+91 78426 61491</a>
+        <a href="mailto:ragathidurga@gmail.com">ragathidurga@gmail.com</a>
+        <a href="https://linkedin.com/in/ragathi-durga-prasanth-526615412" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>Ragathi Durga Prasanth · Visakhapatnam, Andhra Pradesh, India</span>
+      <span>Built from resume · v1.0</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
